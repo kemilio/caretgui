@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaretGui", "CaretGui\CaretGui.csproj", "{A50E69B1-0CC2-48BA-B091-B571B5E3639C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A50E69B1-0CC2-48BA-B091-B571B5E3639C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A50E69B1-0CC2-48BA-B091-B571B5E3639C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A50E69B1-0CC2-48BA-B091-B571B5E3639C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A50E69B1-0CC2-48BA-B091-B571B5E3639C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {829AB965-5B3A-43F1-943F-4F54A0F375F3}
+	EndGlobalSection
+EndGlobal
