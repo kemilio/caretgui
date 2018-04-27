@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Menu x:Name="menu1" Height="21" VerticalAlignment="Top">
+            <Button x:Name="Open" Height="21" Width="37" Content="Open" Click="Open_Click"/>
+            <Button x:Name="Save" Height="21" Width="37" Content="Save" Click="Save_Click"/>
+        </Menu>
+
     </Grid>
 </Window>
