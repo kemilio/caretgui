@@ -23,9 +23,8 @@ namespace CaretGui
     public partial class MainWindow : Window
     {
         private BitmapImage currentImage;
-        private OpenFileDialog openFileDialog;
-        private SaveFileDialog saveFileDialog;
-        private PngBitmapEncoder pngencoder;
+        private OpenFileDialog openObject;
+        private SaveFileDialog saveObject;
 
         public MainWindow()
         {
@@ -37,20 +36,38 @@ namespace CaretGui
 
         }
 
+        private SaveFileDialog pre_Conversion(String type, object sender, RoutedEventArgs e)
+        {
+            Nullable<bool> result = false;
+            saveObject = new SaveFileDialog();
+            if (currentImage != null)
+            {
+                String filename =
+                    openObject.SafeFileName.Substring(0, openObject.SafeFileName.IndexOf('.'));
+                saveObject.FileName = filename + "New";
+                saveObject.DefaultExt = type;
+                saveObject.Filter = type + " image (" + type + ")|*" + type;
+
+                result = saveObject.ShowDialog();
+            }
+            if (result == true) return saveObject;
+            else return null;
+        }
+
         private void Open_Click(object sender, RoutedEventArgs e)
         {
-            openFileDialog = new OpenFileDialog();
+            openObject = new OpenFileDialog();
 
-            openFileDialog.InitialDirectory = "Pictures";
-            openFileDialog.Filter = "png files (*.png)|*.png|All files (*.*)|*.*";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.RestoreDirectory = true;
+            openObject.InitialDirectory = "Pictures";
+            openObject.Filter = "Image Files(*.PNG; *.JPEG; *.BMP; *.TIFF; *.WMP; *.GIF)| *.PNG; *.JPEG; *.BMP; *.TIFF; *.WMP; *.GIF | All files(*.*) | *.*";
+            openObject.FilterIndex = 2;
+            openObject.RestoreDirectory = true;
 
-            if (openFileDialog.ShowDialog() == true)
+            if (openObject.ShowDialog() == true)
             {
                 try
                 {
-                    currentImage = new BitmapImage(new Uri(openFileDialog.FileName));
+                    currentImage = new BitmapImage(new Uri(openObject.FileName));
                 }
                 catch (Exception ex)
                 {
@@ -59,25 +76,117 @@ namespace CaretGui
             }
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private void to_PNG_Click(object sender, RoutedEventArgs e)
         {
-            if (currentImage == null) return;
-            String filename = 
-                openFileDialog.SafeFileName.Substring(0, openFileDialog.SafeFileName.IndexOf('.'));
-            
-            saveFileDialog = new SaveFileDialog();
-            saveFileDialog.FileName = filename + "New";
-            saveFileDialog.DefaultExt = ".png";
-            saveFileDialog.Filter = "png image (.png)|*.png";
-
-            Nullable<bool> result = saveFileDialog.ShowDialog();
-
-            if (result == true)
+            try
             {
-                pngencoder = new PngBitmapEncoder();
-                pngencoder.Frames.Add(BitmapFrame.Create((BitmapImage)currentImage));
-                using (var filestream = new FileStream(saveFileDialog.FileName, FileMode.Create))
-                    pngencoder.Save(filestream);
+                SaveFileDialog saveObject = pre_Conversion(".png", sender, e);
+                if (saveObject != null)
+                {
+                    PngBitmapEncoder pngencoder = new PngBitmapEncoder();
+                    pngencoder.Frames.Add(BitmapFrame.Create((BitmapImage)currentImage));
+                    using (var filestream = new FileStream(saveObject.FileName, FileMode.Create))
+                        pngencoder.Save(filestream);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something happened! Please try again. \n" + ex.Message);
+            }
+        }
+
+        private void to_JPEG_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveObject = pre_Conversion(".jpeg", sender, e);
+                if (saveObject != null)
+                {
+                    JpegBitmapEncoder jpegencoder = new JpegBitmapEncoder();
+                    jpegencoder.Frames.Add(BitmapFrame.Create((BitmapImage)currentImage));
+                    using (var filestream = new FileStream(saveObject.FileName, FileMode.Create))
+                        jpegencoder.Save(filestream);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something happened! Please try again. \n" + ex.Message);
+            }
+        }
+
+        private void to_BMP_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveObject = pre_Conversion(".bmp", sender, e);
+                if (saveObject != null)
+                {
+                    BmpBitmapEncoder bmpencoder = new BmpBitmapEncoder();
+                    bmpencoder.Frames.Add(BitmapFrame.Create((BitmapImage)currentImage));
+                    using (var filestream = new FileStream(saveObject.FileName, FileMode.Create))
+                        bmpencoder.Save(filestream);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something happened! Please try again. \n" + ex.Message);
+            }
+        }
+
+        private void to_TIFF_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveObject = pre_Conversion(".tiff", sender, e);
+                if (saveObject != null)
+                {
+                    TiffBitmapEncoder tiffencoder = new TiffBitmapEncoder();
+                    tiffencoder.Frames.Add(BitmapFrame.Create((BitmapImage)currentImage));
+                    using (var filestream = new FileStream(saveObject.FileName, FileMode.Create))
+                        tiffencoder.Save(filestream);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something happened! Please try again. \n" + ex.Message);
+            }
+        }
+
+        private void to_WMP_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveObject = pre_Conversion(".wmp", sender, e);
+                if (saveObject != null)
+                {
+                    WmpBitmapEncoder wmpencoder = new WmpBitmapEncoder();
+                    wmpencoder.Frames.Add(BitmapFrame.Create((BitmapImage)currentImage));
+                    using (var filestream = new FileStream(saveObject.FileName, FileMode.Create))
+                        wmpencoder.Save(filestream);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something happened! Please try again. \n" + ex.Message);
+            }
+        }
+
+        private void to_GIF_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveObject = pre_Conversion(".gif", sender, e);
+                if (saveObject != null)
+                {
+                    GifBitmapEncoder gifencoder = new GifBitmapEncoder();
+                    gifencoder.Frames.Add(BitmapFrame.Create((BitmapImage)currentImage));
+                    using (var filestream = new FileStream(saveObject.FileName, FileMode.Create))
+                        gifencoder.Save(filestream);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something happened! Please try again. \n" + ex.Message);
             }
         }
     }

@@ -9,8 +9,21 @@
     <Grid>
         <Menu x:Name="menu1" Height="21" VerticalAlignment="Top">
             <Button x:Name="Open" Height="21" Width="37" Content="Open" Click="Open_Click"/>
-            <Button x:Name="Save" Height="21" Width="37" Content="Save" Click="Save_Click"/>
         </Menu>
+        <Button x:Name="to_PNG" Content="To .PNG" HorizontalAlignment="Left" Margin="34,57,0,0" VerticalAlignment="Top" Width="75" Click="to_PNG_Click"/>
+        <Label x:Name="label" Content="   Type Conversions" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.594,0.459" Width="125"/>
+        <Button x:Name="to_JPEG" Content="To .JPEG" HorizontalAlignment="Left" Margin="34,82,0,0" VerticalAlignment="Top" Width="75" Click="to_JPEG_Click"/>
+        <Button x:Name="to_BMP" Content="To .BMP" HorizontalAlignment="Left" Margin="34,107,0,0" VerticalAlignment="Top" Width="75" Click="to_BMP_Click"/>
+        <Button x:Name="to_TIFF" Content="To .TIFF" HorizontalAlignment="Left" Margin="34,132,0,0" VerticalAlignment="Top" Width="75" Click="to_TIFF_Click"/>
+        <Button x:Name="button" Content="To .WMP" HorizontalAlignment="Left" Margin="34,157,0,0" VerticalAlignment="Top" Width="75" Click="to_WMP_Click"/>
+        <Button x:Name="button1" Content="To .GIF" HorizontalAlignment="Left" Margin="34,182,0,0" VerticalAlignment="Top" Width="75" Click="to_GIF_Click"/>
+        <Label x:Name="label1" Content="  Cropping" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="176,28,0,0" RenderTransformOrigin="-0.083,0.617" Width="75"/>
+        <Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="191,117,0,0" VerticalAlignment="Top" Width="60"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="617,144,0,0" VerticalAlignment="Top" Width="100"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="175,88,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="35"/>
+        <Label x:Name="label1_Copy" Content="Height" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="175,59,0,0" RenderTransformOrigin="-0.083,0.617" Width="51"/>
+        <Label x:Name="label1_Copy1" Content="Width" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="231,59,0,0" RenderTransformOrigin="-0.083,0.617" Width="51"/>
+        <TextBox x:Name="textBox_Copy" HorizontalAlignment="Left" Height="23" Margin="231,88,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="35"/>
 
     </Grid>
 </Window>
