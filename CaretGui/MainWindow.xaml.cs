@@ -68,6 +68,7 @@ namespace CaretGui
                 try
                 {
                     currentImage = new BitmapImage(new Uri(openObject.FileName));
+                    ImageViewer1.Source = new BitmapImage(new Uri(openObject.FileName, UriKind.Absolute));
                 }
                 catch (Exception ex)
                 {
@@ -84,7 +85,7 @@ namespace CaretGui
                 if (saveObject != null)
                 {
                     PngBitmapEncoder pngencoder = new PngBitmapEncoder();
-                    pngencoder.Frames.Add(BitmapFrame.Create((BitmapImage)currentImage));
+                    pngencoder.Frames.Add(BitmapFrame.Create(currentImage));
                     using (var filestream = new FileStream(saveObject.FileName, FileMode.Create))
                         pngencoder.Save(filestream);
                 }
@@ -188,6 +189,36 @@ namespace CaretGui
             {
                 MessageBox.Show("Something happened! Please try again. \n" + ex.Message);
             }
+        }
+
+        private void Crop_Click(object sender, RoutedEventArgs e)
+        {
+            Image croppedImage = new Image();
+            croppedImage.Width = 200;
+            croppedImage.Margin = new Thickness(5);
+
+            // Create a CroppedBitmap based off of a xaml defined resource.
+            CroppedBitmap cb = new CroppedBitmap(
+               currentImage, 
+               new Int32Rect(0, 0, 105, 50));       //select region rect
+            croppedImage.Source = cb;
+
+
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            MemoryStream memoryStream = new MemoryStream();
+            BitmapImage bImg = new BitmapImage();
+
+            encoder.Frames.Add(BitmapFrame.Create(cb));
+            encoder.Save(memoryStream);
+
+            memoryStream.Position = 0;
+            bImg.BeginInit();
+            bImg.StreamSource = memoryStream;
+            bImg.EndInit();
+
+            memoryStream.Close();
+
+            currentImage = bImg;
         }
     }
 }
