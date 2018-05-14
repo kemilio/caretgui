@@ -14,17 +14,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace CaretGui
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         private BitmapImage currentImage;
         private OpenFileDialog openObject;
         private SaveFileDialog saveObject;
+        private String filePath = "";
 
         public MainWindow()
         {
@@ -220,5 +222,18 @@ namespace CaretGui
 
             currentImage = bImg;
         }
+
+        private void Browse_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (!string.IsNullOrWhiteSpace(dlg.FileName))
+            {
+                filePath = dlg.FileName;
+                Image_File_Path.Text = filePath;
+            }
+        }
+
     }
 }
