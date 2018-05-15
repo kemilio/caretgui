@@ -13,16 +13,21 @@
         <StackPanel >
             <Image Name="ImageViewer1" Height="200" Width="200" VerticalAlignment="Top" HorizontalAlignment="Right"/>
         </StackPanel>
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800">
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800" >
             <TabItem Header="General">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <Label x:Name="choose_orig_label" Content="Choose Image: "  HorizontalAlignment="Left" VerticalAlignment="Top"   Width="110"/>
+                        <Label x:Name="choose_orig_label" Content="Choose Image: "  HorizontalAlignment="Left" VerticalAlignment="Top"   Width="125"/>
                         <TextBox x:Name="Image_File_Path" TextWrapping="Wrap" Text=""  Width="400"/>
                         <Button Content="Browse" Name="Browse" Click="Browse_Click" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label x:Name="choose_new_label" Content="New Image Name: "  HorizontalAlignment="Left" VerticalAlignment="Top"   Width="110"/>
+                        <Label x:Name="choose_new_location_label" Content="New Image Location: "  HorizontalAlignment="Left" VerticalAlignment="Top"   Width="125"/>
+                        <TextBox x:Name="Image_Location_Name" TextWrapping="Wrap" Text=""  Width="400"/>
+                        <Button Content="Browse" Name="Browse_New_Location" Click="Browse_New_Location_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label x:Name="choose_new_label" Content="New Image Name: "  HorizontalAlignment="Left" VerticalAlignment="Top"   Width="125"/>
                         <TextBox x:Name="Image_New_Name" TextWrapping="Wrap" Text=""  Width="200"/>
                     </StackPanel>
                 </StackPanel>
@@ -44,7 +49,20 @@
                 
             </TabItem>
             <TabItem Header="Coloring">
-                <Grid Background="#FFE5E5E5"/>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Label x:Name="Brightness" Content="Brightness % (0 to 100): "  HorizontalAlignment="Left" VerticalAlignment="Top"   Width="150"/>
+                        <TextBox x:Name="Brightness_Input" TextWrapping="Wrap" Text=""  Width="75"/>
+                        <Button x:Name="Brightness_Button" Content="Generate" Width="75" Click="Brightness_Button_Click"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label x:Name="Hue" Content="Hue Degrees (0 t0 360): " HorizontalAlignment="Left" VerticalAlignment="Top"   Width="150"/>
+                        <TextBox x:Name="Hue_Input" TextWrapping="Wrap" Text=""  Width="75"/>
+                        <Button x:Name="Hue_Button" Content="Generate" Width="75" Click="Hue_Button_Click"/>
+                    </StackPanel>
+                </StackPanel>
+
             </TabItem>
             <TabItem Header="File Type">
                 <StackPanel>
@@ -53,10 +71,9 @@
                     <Button x:Name="to_JPEG" Content="To .JPEG" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="to_JPEG_Click"/>
                     <Button x:Name="to_BMP" Content="To .BMP" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="to_BMP_Click"/>
                     <Button x:Name="to_TIFF" Content="To .TIFF" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="to_TIFF_Click"/>
-                    <Button x:Name="to_WMP" Content="To .WMP" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="to_WMP_Click"/>
-                    <Button x:Name="to_GIF" Content="To .GIF" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="to_GIF_Click"/>
                     <Button x:Name="Crop" Content="Generate Image" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Click="Crop_Click"/>
-                    
+                    <ComboBox/>
+
                 </StackPanel>
             </TabItem>
         </TabControl>
