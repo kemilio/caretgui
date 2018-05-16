@@ -53,26 +53,24 @@
                     <StackPanel Orientation="Horizontal">
                         <Label x:Name="Brightness" Content="Brightness % (0 to 100): "  HorizontalAlignment="Left" VerticalAlignment="Top"   Width="150"/>
                         <TextBox x:Name="Brightness_Input" TextWrapping="Wrap" Text=""  Width="75"/>
-                        <Button x:Name="Brightness_Button" Content="Generate" Width="75" Click="Brightness_Button_Click"/>
 
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label x:Name="Hue" Content="Hue Degrees (0 t0 360): " HorizontalAlignment="Left" VerticalAlignment="Top"   Width="150"/>
                         <TextBox x:Name="Hue_Input" TextWrapping="Wrap" Text=""  Width="75"/>
-                        <Button x:Name="Hue_Button" Content="Generate" Width="75" Click="Hue_Button_Click"/>
                     </StackPanel>
                 </StackPanel>
 
             </TabItem>
             <TabItem Header="File Type">
                 <StackPanel>
-                    <Label Content="TODO: Put each option in a combobox and then have the Crop button generate an image based on chosen file type"/>
-                    <Button x:Name="to_PNG" Content="To .PNG" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="to_PNG_Click"/>
-                    <Button x:Name="to_JPEG" Content="To .JPEG" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="to_JPEG_Click"/>
-                    <Button x:Name="to_BMP" Content="To .BMP" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="to_BMP_Click"/>
-                    <Button x:Name="to_TIFF" Content="To .TIFF" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="to_TIFF_Click"/>
-                    <Button x:Name="Crop" Content="Generate Image" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Click="Crop_Click"/>
-                    <ComboBox/>
+                    <ComboBox Name="ComboBox">
+                        <ComboBoxItem>.JPEG</ComboBoxItem>
+                        <ComboBoxItem>.PNG</ComboBoxItem>
+                        <ComboBoxItem>.BMP</ComboBoxItem>
+                        <ComboBoxItem>.TIFF</ComboBoxItem>
+                    </ComboBox>
+                    <Button x:Name="Master" Content="Generate Image" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Click="Master_Click"/>
 
                 </StackPanel>
             </TabItem>
