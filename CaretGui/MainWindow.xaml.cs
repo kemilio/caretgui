@@ -15,6 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using ImageProcessor.Imaging.Formats;
+using ImageProcessor;
+using System.Drawing.Imaging;
 
 namespace CaretGui
 {
@@ -26,7 +29,8 @@ namespace CaretGui
         private BitmapImage currentImage;
         private OpenFileDialog openObject;
         private SaveFileDialog saveObject;
-        private String filePath = "";
+        private String origFilePath = "";
+        private String newFilePath = "";
 
         public MainWindow()
         {
@@ -226,14 +230,149 @@ namespace CaretGui
         private void Browse_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
+            Nullable<bool> result = dlg.ShowDialog(); 
+
+            if (!string.IsNullOrWhiteSpace(dlg.FileName))
+            {
+                origFilePath = dlg.FileName;
+                Image_File_Path.Text = origFilePath;
+            }
+        }
+
+        private void Browse_New_Location_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
             Nullable<bool> result = dlg.ShowDialog();
 
             if (!string.IsNullOrWhiteSpace(dlg.FileName))
             {
-                filePath = dlg.FileName;
-                Image_File_Path.Text = filePath;
+                newFilePath = dlg.FileName;
+                Image_Location_Name.Text = newFilePath;
             }
         }
 
+        //returns new file path without any extension (needs extension to be generated)
+        private String getNewFilePath()
+        {
+            String name = "";
+            String path = "";
+
+            //set new name or default to original_Edit
+            if (Image_New_Name.Text == "")
+            {
+                String[] parsed = Image_File_Path.Text.Split('\\');
+                name = parsed[parsed.Length - 1];
+                name = name.Substring(0, name.IndexOf(".")); //trims file extension off of name
+                name += "_Edit";
+            }
+            else
+                name = Image_New_Name.Text;
+
+
+            //set new path or default to original path
+            if (Image_Location_Name.Text == "")
+            {
+                String[] parsed = Image_File_Path.Text.Split('\\');
+
+                for (int i = 0; i < parsed.Length - 1; i++)
+                {
+                    if (i != 0)
+                        path += @"\";
+                    path += parsed[i];
+                }
+            }
+            else
+                path = Image_Location_Name.Text;
+
+
+            String result = path + @"\" + name;
+            Console.WriteLine("Debug path: " + path);
+            Console.WriteLine("Debug name: " + name);
+            Console.WriteLine("Debug: " + result);
+            return result;
+
+        }
+
+        private void Brightness_Button_Click(object sender, RoutedEventArgs e)
+        {
+            int brightness = 0;
+            Int32.TryParse(Brightness_Input.Text, out brightness);
+
+            byte[] photoBytes = File.ReadAllBytes(origFilePath);
+            // Format is automatically detected though can be changed.
+            ISupportedImageFormat format = new JpegFormat { Quality = 70 };
+            using (MemoryStream inStream = new MemoryStream(photoBytes))
+            {
+                using (MemoryStream outStream = new MemoryStream())
+                {
+                    // Initialize the ImageFactory using the overload to preserve EXIF metadata.
+                    using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
+                    {
+                        // Load, resize, set the format and quality and save an image.
+                        imageFactory.Load(inStream)
+                                    .Brightness(brightness)
+                                    .Format(format)                             
+                                    .Save(outStream);
+
+                    }
+                    // Do something with the stream.
+
+
+                    byte[] newImageBytes = outStream.ToArray();
+
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(outStream);
+
+                    img.Save(outStream, ImageFormat.Jpeg);
+
+                    //might require Admin priviledges (i.e. VS run as admin)
+                    Console.WriteLine(getNewFilePath() + ".jpg");
+                    FileStream file = new FileStream(getNewFilePath() + ".jpg", FileMode.Create, FileAccess.Write);
+                    outStream.WriteTo(file);
+                    file.Close();       
+                }
+            }
+        }
+
+
+
+        private void Hue_Button_Click(object sender, RoutedEventArgs e)
+        {
+            int hue = 0;
+            Int32.TryParse(Hue_Input.Text, out hue);
+
+            byte[] photoBytes = File.ReadAllBytes(origFilePath);
+            // Format is automatically detected though can be changed.
+            ISupportedImageFormat format = new JpegFormat { Quality = 70 };
+            using (MemoryStream inStream = new MemoryStream(photoBytes))
+            {
+                using (MemoryStream outStream = new MemoryStream())
+                {
+                    // Initialize the ImageFactory using the overload to preserve EXIF metadata.
+                    using (ImageFactory imageFactory = new ImageFactory(preserveExifData: true))
+                    {
+                        // Load, resize, set the format and quality and save an image.
+                        imageFactory.Load(inStream)
+                                    .Hue(hue)
+                                    .Format(format)
+                                    .Save(outStream);
+
+                    }
+                    // Do something with the stream.
+
+
+                    byte[] newImageBytes = outStream.ToArray();
+
+                    System.Drawing.Image img = System.Drawing.Image.FromStream(outStream);
+
+                    img.Save(outStream, ImageFormat.Jpeg);
+
+                    //might require Admin priviledges (i.e. VS run as admin)
+                    Console.WriteLine(getNewFilePath() + ".jpg");
+                    FileStream file = new FileStream(getNewFilePath() + ".jpg", FileMode.Create, FileAccess.Write);
+                    outStream.WriteTo(file);
+                    file.Close();
+                }
+            }
+        }
     }
 }
