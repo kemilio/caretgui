@@ -30,6 +30,9 @@
                         <Label x:Name="choose_new_label" Content="New Image Name: "  HorizontalAlignment="Left" VerticalAlignment="Top"   Width="125"/>
                         <TextBox x:Name="Image_New_Name" TextWrapping="Wrap" Text=""  Width="200"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="Master" Content="Generate Image"  VerticalAlignment="Top" Width="100" Click="Master_Click"/>
+                    </StackPanel>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Resizing">
@@ -63,15 +66,18 @@
 
             </TabItem>
             <TabItem Header="File Type">
-                <StackPanel>
-                    <ComboBox Name="ComboBox">
-                        <ComboBoxItem>.JPEG</ComboBoxItem>
-                        <ComboBoxItem>.PNG</ComboBoxItem>
-                        <ComboBoxItem>.BMP</ComboBoxItem>
-                        <ComboBoxItem>.TIFF</ComboBoxItem>
-                    </ComboBox>
-                    <Button x:Name="Master" Content="Generate Image" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Click="Master_Click"/>
-
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Label>
+                            File Extension: 
+                        </Label>
+                        <ComboBox Name="ComboBox" Width="100" HorizontalAlignment="Left" >
+                            <ComboBoxItem>.JPEG</ComboBoxItem>
+                            <ComboBoxItem>.PNG</ComboBoxItem>
+                            <ComboBoxItem>.BMP</ComboBoxItem>
+                            <ComboBoxItem>.TIFF</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
                 </StackPanel>
             </TabItem>
         </TabControl>

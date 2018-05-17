@@ -262,12 +262,12 @@ namespace CaretGui
 
         private void Browse_New_Location_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            Nullable<bool> result = dlg.ShowDialog();
+            System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
+            System.Windows.Forms.DialogResult result = dlg.ShowDialog();
 
-            if (!string.IsNullOrWhiteSpace(dlg.FileName))
+            if (!string.IsNullOrWhiteSpace(dlg.SelectedPath))
             {
-                newFilePath = dlg.FileName;
+                newFilePath = dlg.SelectedPath;
                 Image_Location_Name.Text = newFilePath;
             }
         }
@@ -398,17 +398,17 @@ namespace CaretGui
 
         private void Master_Click(object sender, RoutedEventArgs e)
         {
-            if (Hue_Input.Text != null)
+            if (Hue_Input.Text != "")
             {
                 Hue_Execute();
             }
 
-            if (Brightness_Input.Text != null)
+            if (Brightness_Input.Text != "")
             {
                 Brightness_Execute();
             }
 
-            if (Height_Input != null && Width_Input != null)
+            if (Height_Input.Text != "" && Width_Input.Text != "")
             {
                 Crop_Execute();
             }
